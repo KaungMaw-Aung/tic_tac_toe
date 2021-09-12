@@ -28,6 +28,8 @@ class GameViewModel : ViewModel() {
     val isGameStarted: LiveData<Boolean>
         get() = _isGameStarted
 
+    val playerTurnLive = MutableLiveData<String>()
+
     // check if the player won the game
     fun doesPlayerWinTheGame(doCheckForUser: Boolean): Boolean {
         var result = false
@@ -170,5 +172,6 @@ class GameViewModel : ViewModel() {
 
     init {
         _isGameStarted.value = true
+        playerTurnLive.value = "Player One"
     }
 }

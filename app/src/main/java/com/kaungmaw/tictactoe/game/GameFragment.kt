@@ -108,7 +108,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -120,7 +120,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -132,7 +132,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -144,7 +144,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -156,7 +156,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -168,7 +168,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -180,7 +180,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -192,7 +192,7 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
         }
@@ -204,17 +204,28 @@ class GameFragment : Fragment() {
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
-                    viewModel.toggleTurns()
+                    toggleTurn()
                 }
             }
+        }
+
+        viewModel.playerTurnLive.observe(viewLifecycleOwner) {
+            binding.tvPlayerTurn.text = getString(R.string.player_turn, it)
         }
 
     }
 
     private fun navigateToGameResult() {
-        findNavController().navigate(GameFragmentDirections.toResultFragment(
-            if (viewModel.isPlayer1Turn) "Player One" else "Player Two"
-        ))
+        findNavController().navigate(
+            GameFragmentDirections.toResultFragment(
+                if (viewModel.isPlayer1Turn) "Player One" else "Player Two"
+            )
+        )
+    }
+
+    private fun toggleTurn() {
+        viewModel.toggleTurns()
+        viewModel.playerTurnLive.value = if (viewModel.isPlayer1Turn) "Player One" else "Player Two"
     }
 
 }
