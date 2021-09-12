@@ -125,49 +125,14 @@ class GameViewModel : ViewModel() {
         return result
     }
 
-    fun setValueOnIndex00(value: Char) {
-        savedInputs[0][0] = value
-        _savedInputsLive.value = savedInputs
-    }
+    private val _clickedCountLive = MutableLiveData(0)
+    val clickedCountLive: LiveData<Int>
+        get() = _clickedCountLive
 
-    fun setValueOnIndex01(value: Char) {
-        savedInputs[0][1] = value
+    fun setValueOnIndex(index: Pair<Int, Int>, value: Char) {
+        savedInputs[index.first][index.second] = value
         _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex02(value: Char) {
-        savedInputs[0][2] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex10(value: Char) {
-        savedInputs[1][0] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex11(value: Char) {
-        savedInputs[1][1] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex12(value: Char) {
-        savedInputs[1][2] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex20(value: Char) {
-        savedInputs[2][0] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex21(value: Char) {
-        savedInputs[2][1] = value
-        _savedInputsLive.value = savedInputs
-    }
-
-    fun setValueOnIndex22(value: Char) {
-        savedInputs[2][2] = value
-        _savedInputsLive.value = savedInputs
+        _clickedCountLive.value = _clickedCountLive.value?.plus(1)
     }
 
     init {

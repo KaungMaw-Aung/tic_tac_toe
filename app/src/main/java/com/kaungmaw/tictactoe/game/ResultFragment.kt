@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,7 +26,8 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvWinner.setText(navArgs.winnerName)
+        binding.tvWinnerAnnouncement.isVisible = (navArgs.winnerName == "Draw").not()
+        binding.tvWinner.text = navArgs.winnerName
 
         binding.btnRestart.setOnClickListener {
             findNavController().navigate(ResultFragmentDirections.toRestartGame())

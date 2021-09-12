@@ -103,7 +103,7 @@ class GameFragment : Fragment() {
         // getting click events from nine squares
         binding.square00.setOnClickListener {
             if (viewModel.savedInputs[0][0] == ' ') {
-                viewModel.setValueOnIndex00(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(0 to 0, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -115,7 +115,7 @@ class GameFragment : Fragment() {
 
         binding.square01.setOnClickListener {
             if (viewModel.savedInputs[0][1] == ' ') {
-                viewModel.setValueOnIndex01(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(0 to 1, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -127,7 +127,7 @@ class GameFragment : Fragment() {
 
         binding.square02.setOnClickListener {
             if (viewModel.savedInputs[0][2] == ' ') {
-                viewModel.setValueOnIndex02(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(0 to 2, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -139,7 +139,7 @@ class GameFragment : Fragment() {
 
         binding.square10.setOnClickListener {
             if (viewModel.savedInputs[1][0] == ' ') {
-                viewModel.setValueOnIndex10(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(1 to 0, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -151,7 +151,7 @@ class GameFragment : Fragment() {
 
         binding.square11.setOnClickListener {
             if (viewModel.savedInputs[1][1] == ' ') {
-                viewModel.setValueOnIndex11(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(1 to 1, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -163,7 +163,7 @@ class GameFragment : Fragment() {
 
         binding.square12.setOnClickListener {
             if (viewModel.savedInputs[1][2] == ' ') {
-                viewModel.setValueOnIndex12(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(1 to 2, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -175,7 +175,7 @@ class GameFragment : Fragment() {
 
         binding.square20.setOnClickListener {
             if (viewModel.savedInputs[2][0] == ' ') {
-                viewModel.setValueOnIndex20(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(2 to 0, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -187,7 +187,7 @@ class GameFragment : Fragment() {
 
         binding.square21.setOnClickListener {
             if (viewModel.savedInputs[2][1] == ' ') {
-                viewModel.setValueOnIndex21(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(2 to 1, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
@@ -199,13 +199,19 @@ class GameFragment : Fragment() {
 
         binding.square22.setOnClickListener {
             if (viewModel.savedInputs[2][2] == ' ') {
-                viewModel.setValueOnIndex22(if (viewModel.isPlayer1Turn) 'X' else 'O')
+                viewModel.setValueOnIndex(2 to 2, if (viewModel.isPlayer1Turn) 'X' else 'O')
 
                 if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
                     navigateToGameResult()
                 } else {
                     toggleTurn()
                 }
+            }
+        }
+
+        viewModel.clickedCountLive.observe(viewLifecycleOwner) {
+            if (it == 9) {
+                findNavController().navigate(GameFragmentDirections.toResultFragment("Draw"))
             }
         }
 
