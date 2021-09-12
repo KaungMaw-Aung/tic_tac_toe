@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kaungmaw.tictactoe.R
 import com.kaungmaw.tictactoe.databinding.FragmentGameBinding
 
@@ -28,13 +29,13 @@ class GameFragment : Fragment() {
 
         viewModel.isGameStarted.observe(viewLifecycleOwner) {
             if (it) {
-                viewModel.isUserTurn = true
+                viewModel.isPlayer1Turn = true
             }
         }
 
         viewModel.savedInputsLive.observe(viewLifecycleOwner) {
             Log.i("GameFragment", it.contentDeepToString())
-            binding.ivSquare00.setBackgroundResource(
+            binding.ivSquare00.setImageResource(
                 when (it[0][0]) {
                     'X' -> R.drawable.ic_cross
                     'O' -> R.drawable.ic_circle
@@ -101,59 +102,119 @@ class GameFragment : Fragment() {
 
         // getting click events from nine squares
         binding.square00.setOnClickListener {
-            viewModel.setValueOnIndex00(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[0][0] == ' ') {
+                viewModel.setValueOnIndex00(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square01.setOnClickListener {
-            viewModel.setValueOnIndex01(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[0][1] == ' ') {
+                viewModel.setValueOnIndex01(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square02.setOnClickListener {
-            viewModel.setValueOnIndex02(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[0][2] == ' ') {
+                viewModel.setValueOnIndex02(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square10.setOnClickListener {
-            viewModel.setValueOnIndex10(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[1][0] == ' ') {
+                viewModel.setValueOnIndex10(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square11.setOnClickListener {
-            viewModel.setValueOnIndex11(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[1][1] == ' ') {
+                viewModel.setValueOnIndex11(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square12.setOnClickListener {
-            viewModel.setValueOnIndex12(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[1][2] == ' ') {
+                viewModel.setValueOnIndex12(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square20.setOnClickListener {
-            viewModel.setValueOnIndex20(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[2][0] == ' ') {
+                viewModel.setValueOnIndex20(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square21.setOnClickListener {
-            viewModel.setValueOnIndex21(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[2][1] == ' ') {
+                viewModel.setValueOnIndex21(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
         binding.square22.setOnClickListener {
-            viewModel.setValueOnIndex22(if (viewModel.isUserTurn) 'X' else 'O')
-            viewModel.toggleTurns()
-            Log.i("GameFragment", viewModel.savedInputs.contentDeepToString())
+            if (viewModel.savedInputs[2][2] == ' ') {
+                viewModel.setValueOnIndex22(if (viewModel.isPlayer1Turn) 'X' else 'O')
+
+                if (viewModel.doesPlayerWinTheGame(viewModel.isPlayer1Turn)) {
+                    navigateToGameResult()
+                } else {
+                    viewModel.toggleTurns()
+                }
+            }
         }
 
+    }
+
+    private fun navigateToGameResult() {
+        findNavController().navigate(GameFragmentDirections.toResultFragment(
+            if (viewModel.isPlayer1Turn) "Player One" else "Player Two"
+        ))
     }
 
 }

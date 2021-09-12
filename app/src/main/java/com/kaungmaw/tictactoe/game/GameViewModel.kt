@@ -11,24 +11,117 @@ class GameViewModel : ViewModel() {
         get() = _savedInputsLive
 
     val savedInputs = arrayOf(
-    charArrayOf(' ', ' ', ' '),
-    charArrayOf(' ', ' ', ' '),
-    charArrayOf(' ', ' ', ' ')
+        charArrayOf(' ', ' ', ' '),
+        charArrayOf(' ', ' ', ' '),
+        charArrayOf(' ', ' ', ' ')
     )
 
-    var isUserTurn: Boolean = false
-    var isBotTurn: Boolean = false
+    var isPlayer1Turn: Boolean = false
+    var isPlayer2Turn: Boolean = false
 
     fun toggleTurns() {
-        isUserTurn = !isUserTurn
-        isBotTurn = !isBotTurn
+        isPlayer1Turn = !isPlayer1Turn
+        isPlayer2Turn = !isPlayer2Turn
     }
 
     private val _isGameStarted = MutableLiveData<Boolean>()
     val isGameStarted: LiveData<Boolean>
         get() = _isGameStarted
 
-//    fun doesPlayerWinTheGame()
+    // check if the player won the game
+    fun doesPlayerWinTheGame(doCheckForUser: Boolean): Boolean {
+        var result = false
+        val mark = if (doCheckForUser) 'X' else 'O'
+
+        if (savedInputs[0][0] == mark) {
+            if (
+                savedInputs[0][1] == mark && savedInputs[0][2] == mark ||
+                savedInputs[1][0] == mark && savedInputs[2][0] == mark ||
+                savedInputs[1][1] == mark && savedInputs[2][2] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[0][1] == mark) {
+            if (
+                savedInputs[0][0] == mark && savedInputs[0][2] == mark ||
+                savedInputs[1][1] == mark && savedInputs[2][1] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[0][2] == mark) {
+            if (
+                savedInputs[0][0] == mark && savedInputs[0][1] == mark ||
+                savedInputs[1][2] == mark && savedInputs[2][2] == mark ||
+                savedInputs[1][1] == mark && savedInputs[2][0] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[1][0] == mark) {
+            if (
+                savedInputs[0][0] == mark && savedInputs[2][0] == mark ||
+                savedInputs[1][1] == mark && savedInputs[1][2] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[1][1] == mark) {
+            if (
+                savedInputs[0][1] == mark && savedInputs[2][1] == mark ||
+                savedInputs[1][0] == mark && savedInputs[1][2] == mark ||
+                savedInputs[0][0] == mark && savedInputs[2][2] == mark ||
+                savedInputs[0][2] == mark && savedInputs[2][0] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[1][2] == mark) {
+            if (
+                savedInputs[0][2] == mark && savedInputs[2][2] == mark ||
+                savedInputs[1][0] == mark && savedInputs[1][1] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[2][0] == mark) {
+            if (
+                savedInputs[0][0] == mark && savedInputs[1][0] == mark ||
+                savedInputs[2][2] == mark && savedInputs[2][1] == mark ||
+                savedInputs[1][1] == mark && savedInputs[0][2] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[2][1] == mark) {
+            if (
+                savedInputs[0][1] == mark && savedInputs[1][1] == mark ||
+                savedInputs[2][0] == mark && savedInputs[2][2] == mark
+            ) {
+                result = true
+            }
+        }
+
+        if (savedInputs[2][2] == mark) {
+            if (
+                savedInputs[2][0] == mark && savedInputs[2][1] == mark ||
+                savedInputs[0][0] == mark && savedInputs[1][1] == mark ||
+                savedInputs[0][2] == mark && savedInputs[1][2] == mark
+            ) {
+                result = true
+            }
+        }
+
+        return result
+    }
 
     fun setValueOnIndex00(value: Char) {
         savedInputs[0][0] = value
